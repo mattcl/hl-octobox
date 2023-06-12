@@ -6,6 +6,7 @@ resources:
   - ../../components/db
   - ../../components/redis
   - db-secret.yaml
+  - octobox-secret.yaml
 namespace: "octobox"
 namePrefix: "octobox-"
 images:
@@ -19,6 +20,9 @@ configMapGenerator:
   - name: app-config
     envs:
       - "app-config.env"
+  - name: app-sentinel
+    files:
+      - octobox-secret.yaml
   # we're going to trigger the rollout by additionally having a generated
   # config map that changes when the sealed secret is updated.
   # See: https://github.com/kubernetes-sigs/kustomize/issues/702
